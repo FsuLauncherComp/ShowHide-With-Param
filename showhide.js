@@ -8,7 +8,7 @@ $(document).ready(function () {
         if (!configured) {
             configure();
         } else {
-            addParamListener(tableau.extensions.settings.get('parameter'));
+            initExtension(tableau.extensions.settings.get('parameter'));
         }
     });
 });
@@ -17,9 +17,7 @@ function configure() {
     const popupUrl = `${window.location.origin}/ShowHide-With-Param/config.html`
     let payload;
     tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 350, width: 775 }).then((closePayload) => {
-        setZoneVisibilityObject();
-        addParamListener(tableau.extensions.settings.get('parameter'));
-        setVisibility();
+        initExtension(tableau.extensions.settings.get('parameter'));
     }).catch((error) => {
         switch (error.errorCode) {
             case tableau.ErrorCodes.DialogClosedByUser:
@@ -39,11 +37,13 @@ function setZoneVisibilityObject() {
     });
 }
 
-function addParamListener(pname) {
+function initExtension(pname) {
+    setZoneVisibilityObject();
     tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(params => {
         let selParam = params.find(p => p.name == pname);
         selParam.addEventListener(tableau.TableauEventType.ParameterChanged, setVisibility);
     });
+    setVisibility();
 }
 
 function getZoneVisibility(selParamValue) {
