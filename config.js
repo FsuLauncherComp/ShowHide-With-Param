@@ -28,7 +28,7 @@ function getParams() {
 function getDashboardObjects() {
     let options = '';
     tableau.extensions.dashboardContent.dashboard.objects.forEach(function (zone) {
-        if (zone.isfloating) {
+        if (zone.isVisible) {
             options += `<option value='${zone.name}'>${zone.name}</option>`;
         }
     })
@@ -40,10 +40,12 @@ function submit() {
     let param = document.getElementById('pickparam').value;
     let paramValue = document.getElementById('paramvalue').value;
     let zone= document.getElementById('pickzone').value;
+    let showhidevalue = document.getElementById('showhideoption').value;
     tableau.extensions.settings.set('configured', 'true');
     tableau.extensions.settings.set('parameter', param);
     tableau.extensions.settings.set('zone', zone);
     tableau.extensions.settings.set('paramvalue', paramValue);
+    tableau.extensions.settings.set('showhidevalue', showhidevalue);
     tableau.extensions.settings.saveAsync().then(result => {
         tableau.extensions.ui.closeDialog(param);
     });

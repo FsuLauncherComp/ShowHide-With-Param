@@ -1,5 +1,4 @@
 let selParam
-let today = new Date();
 let zoneVisbilityObject = {};
 
 $(document).ready(function () {
@@ -9,8 +8,7 @@ $(document).ready(function () {
         if (!configured) {
             configure();
         } else {
-            //configure();
-           addParamListener(tableau.extensions.settings.get('parameter'));
+            addParamListener(tableau.extensions.settings.get('parameter'));
         }
     });
 });
@@ -18,8 +16,10 @@ $(document).ready(function () {
 function configure() {
     const popupUrl = `${window.location.origin}/ShowHide-With-Param/config.html`
     let payload;
-    tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 300, width: 500 }).then((closePayload) => {
+    tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 350, width: 775 }).then((closePayload) => {
+        setZoneVisibilityObject();
         addParamListener(tableau.extensions.settings.get('parameter'));
+        setVisibility();
     }).catch((error) => {
         switch (error.errorCode) {
             case tableau.ErrorCodes.DialogClosedByUser:
@@ -31,35 +31,38 @@ function configure() {
     });
 }
 
-
-function addParamListener(pname) {
-    let configuedValue = tableau.extensions.settings.get('paramvalue');
+function setZoneVisibilityObject() {
     tableau.extensions.dashboardContent.dashboard.objects.forEach(function (object) {
         if (object.name == tableau.extensions.settings.get('zone')) {
-            tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(params => {
-                let selParam = params.find(p => p.name == pname);
-                selParam.addEventListener(tableau.TableauEventType.ParameterChanged, onParameterChange);
-                if (selParam.currentValue.value === configuedValue) {
-                    zoneVisbilityObject[object.id] = tableau.ZoneVisibilityType.Show;
-                    tableau.extensions.dashboardContent.dashboard.setZoneVisibilityAsync(zoneVisbilityObject);
-                } else {
-                    zoneVisbilityObject[object.id] = tableau.ZoneVisibilityType.Hide;
-                    tableau.extensions.dashboardContent.dashboard.setZoneVisibilityAsync(zoneVisbilityObject);
-                }
-            });
+            zoneVisbilityObject[object.id] = tableau.ZoneVisibilityType.Show;
         }
     });
 }
 
-function onParameterChange() {
-    let configuedValue = tableau.extensions.settings.get('paramvalue');
+function addParamListener(pname) {
     tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(params => {
-        let selParam = params.find(p => p.name == tableau.extensions.settings.get('parameter'));
-        if (selParam.currentValue.value === configuedValue) {
-            toggleZoneVisibility(tableau.ZoneVisibilityType.Show);
-        } else {
-            toggleZoneVisibility(tableau.ZoneVisibilityType.Hide);
-        }
+        let selParam = params.find(p => p.name == pname);
+        selParam.addEventListener(tableau.TableauEventType.ParameterChanged, setVisibility);
+    });
+}
+
+function getZoneVisibility(selParamValue) {
+    let configuedValue = tableau.extensions.settings.get('paramvalue');
+    let showZone = Boolean('show' == tableau.extensions.settings.get('showhidevalue'));
+    if (configuedValue == selParamValue && showZone) {
+        return tableau.ZoneVisibilityType.Show;
+    } else if (configuedValue != selParamValue && !showZone) {
+        return tableau.ZoneVisibilityType.Show;
+    } else {
+        return tableau.ZoneVisibilityType.Hide;
+    }
+}
+
+function setVisibility() {
+    tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(params => {
+        let selParamValue = params.find(p => p.name == tableau.extensions.settings.get('parameter')).currentValue.value;
+        let visibility = getZoneVisibility(selParamValue);
+        toggleZoneVisibility(visibility);
     });
 }
 
