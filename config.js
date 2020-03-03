@@ -28,7 +28,7 @@ function getParams() {
 function getDashboardObjects() {
     let options = '';
     tableau.extensions.dashboardContent.dashboard.objects.forEach(function (zone) {
-        if (zone.isVisible) {
+        if (zone.isfloating) {
             options += `<option value='${zone.name}'>${zone.name}</option>`;
         }
     })
