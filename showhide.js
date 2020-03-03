@@ -17,7 +17,6 @@ $(document).ready(function () {
 
 function configure() {
     const popupUrl = `${window.location.origin}/ShowHide-With-Param/config.html`
-    document.getElementById('zones').innerHTML += popupUrl;
     let payload;
     tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 300, width: 500 }).then((closePayload) => {
         addParamListener(tableau.extensions.settings.get('parameter'));
