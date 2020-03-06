@@ -17,43 +17,101 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
-    <script src="config.js"></script>
+    <script src="./config.js"></script>
     <script src="./tableau.extensions.1.3.0.js"></script>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <h1>Show Hide Object Configuration</h1>
+    <div class="container p-4 overflow-hidden">
+        <h3>Show Hide Object Configuration</h3>
         <p>Set the values and save</p>
-        <form>
-            <div class="form-group">
-                <label for="pickzone">Choose Zone</label>
-                <select class="form-control" id="pickzone" style="width:100%;">
-                    <option value='' disabled>Loading...</option>
-                </select>
+        <div class="row">
+            <div class="col-10">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="zone-tab" data-toggle="tab" href="#zone" role="tab"
+                            aria-controls="zone" aria-selected="true">Select Zone</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="trigger-tab" data-toggle="tab" href="#trigger" role="tab"
+                            aria-controls="trigger" aria-selected="false">Configure Trigger</a>
+                    </li>
+                </ul>
             </div>
-            <div class="form-group">
-                <label for="pickparam">Parameter</label>
-                <select class="form-control" id="pickparam" style="width:100%;">
-                    <option value='' disabled>Loading...</option>
-                </select>
+            <div class="col-2">
+                <button type="button" class="btn btn-primary float-right" id="save-settings" onclick="submit()"
+                    disabled>Save</button>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                        <label for="showhideoption">Show/Hide</label>
-                    <select class="form-control" id="showhideoption">
-                        <option value='show'>Show</option>
-                        <option value='hide'>Hide</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                        <label for="paramvalue">Parameter Value</label>
-                    <input type="text" class="form-control" id="paramvalue">
+        </div>
+
+        <div class="tab-content mh-100" id="myTabContent">
+            <div class="tab-pane fade show active py-3" id="zone" role="tabpanel" aria-labelledby="zone-tab">
+                <div class="row flex-row flex-nowrap">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-block p-2">
+                                <h6>Where to look</h6>
+                                <p>In the Item Hierarchy, find the name of the object you want to show/hide.</p>
+                                <p>If the Object you want to show/hide does not have a distinct name, name it and reload
+                                    extension</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <label for="pickzone">Choose a Zone from the Dropdown</label>
+                        <select class="form-control" id="pickzone" style="width:100%;">
+                            <option value='' disabled>Loading...</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </form>
-        <button type="button" class="btn btn-primary" id="setparam" onclick="submit()" disabled>Save</button>
+
+            <div class="tab-pane fade active py-3" id="trigger" role="tabpanel" aria-labelledby="trigger-tab">
+
+                <div class="form-group">
+                    <label for="trigger-type">Trigger Type</label>
+                    <select class="form-control" id="trigger-type">
+                        <option value="" selected disabled>Please select</option>
+                        <option value='trigger-parameter'>Parameter</option>
+                        <option value='trigger-dashboard-action'>Dashboard Action</option>
+                    </select>
+                </div>
+
+                <div id="trigger-parameter" class="trigger-config">
+                    <div class="form-group">
+                        <label for="pickparam">Parameter</label>
+                        <select class="form-control" id="pickparam" style="width:100%;">
+                            <option value='' disabled>Loading...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="showhideoption">Show/Hide</label>
+                            <select class="form-control" id="showhideoption">
+                                <option value='show'>Show</option>
+                                <option value='hide'>Hide</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="paramvalue">Parameter Value</label>
+                            <input type="text" class="form-control" id="paramvalue">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="trigger-dashboard-action" class="trigger-config">
+                    <div class="form-group">
+                        <label for="select-worksheet">Pick Worksheet</label>
+                        <select class="form-control" id="select-worksheet" style="width:100%;">
+                            <option value='' disabled>Loading...</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </body>
 
