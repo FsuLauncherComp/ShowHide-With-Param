@@ -7,7 +7,14 @@ $(document).ready(function () {
 });
 
 function swapTriggerTypes() {
+    let triggerType = tableau.extensions.settings.get('triggerType');
     $('.trigger-config').hide();
+    if (triggerType != undefined) {
+        $('#trigger-type option[value="' + triggerType + '"]').prop("selected", true);
+        $('#' + triggerType).show();
+        getParams();
+        setParamValue();
+    }
     $('#trigger-type').change(function () {
         $('.trigger-config').hide();
         let triggerSelection = $(this).val();
@@ -22,20 +29,30 @@ function swapTriggerTypes() {
 
 function getWorksheets() {
     let options = '';
+    let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
     tableau.extensions.dashboardContent.dashboard.worksheets.forEach(function (worksheet) {
-        options += `<option value=${worksheet.name}>${worksheet.name}</option>`;
+        if (worksheet.name == selectedWorksheet) {
+            options += `<option value=${worksheet.name} selected>${worksheet.name}</option>`;
+        } else {
+            options += `<option value=${worksheet.name}>${worksheet.name}</option>`;
+        }
     });
     document.getElementById('select-worksheet').innerHTML = options;
     document.getElementById('save-settings').disabled = false;
 }
 
 function getParams() {
+    let selectedParameter = tableau.extensions.settings.get('parameter');
     tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(params => {
         let options = '';
         let c = 0;
         for (let p of params) {
             if (p.dataType != 'date') {
-                options += `<option value='${p.name}'>${p.name}</option>`;
+                if (p.name == selectedParameter) {
+                    options += `<option value='${p.name}' selected>${p.name}</option>`;
+                } else {
+                    options += `<option value='${p.name}'>${p.name}</option>`;
+                }
                 c++
             }
         }
@@ -48,11 +65,23 @@ function getParams() {
     });
 }
 
+function setParamValue() {
+    let configuedValue = tableau.extensions.settings.get('paramvalue');
+    if (configuedValue != undefined) {
+        document.getElementById('paramvalue').value = configuedValue;
+    }
+}
+
 function getDashboardObjects() {
     let options = '';
+    let selectedZone = tableau.extensions.settings.get('zone');
     tableau.extensions.dashboardContent.dashboard.objects.forEach(function (zone) {
         if (zone.isVisible) {
-            options += `<option value='${zone.name}'>${zone.name}</option>`;
+            if (zone.name == selectedZone) {
+                options += `<option value='${zone.name}' selected>${zone.name}</option>`;
+            } else {
+                options += `<option value='${zone.name}'>${zone.name}</option>`;
+            }
         }
     })
     document.getElementById('pickzone').innerHTML = options;
