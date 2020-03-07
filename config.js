@@ -14,6 +14,7 @@ function swapTriggerTypes() {
         $('#' + triggerType).show();
         getParams();
         setParamValue();
+        getWorksheets();
     }
     $('#trigger-type').change(function () {
         $('.trigger-config').hide();
