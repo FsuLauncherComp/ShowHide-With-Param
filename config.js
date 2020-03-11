@@ -77,7 +77,7 @@ function getDashboardObjects() {
     let options = '';
     let selectedZone = tableau.extensions.settings.get('zone');
     tableau.extensions.dashboardContent.dashboard.objects.forEach(function (zone) {
-        if (zone.isVisible) {
+        if (zone.isFloating) {
             if (zone.name == selectedZone) {
                 options += `<option value='${zone.name}' selected>${zone.name}</option>`;
             } else {
