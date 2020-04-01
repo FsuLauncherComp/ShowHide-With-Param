@@ -105,7 +105,6 @@ function submit() {
         tableau.extensions.settings.set('paramvalue', paramValue);
     } else {
         let selectedWorksheet = document.getElementById('select-worksheet').value;
-        document.getElementById('trigger-dashboard-action').innerHTML += selectedWorksheet;
         tableau.extensions.settings.set('selectedWorksheet', selectedWorksheet);
     }
 
