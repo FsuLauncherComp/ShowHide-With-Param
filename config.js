@@ -104,7 +104,7 @@ function submit() {
         tableau.extensions.settings.set('showhidevalue', showhidevalue);
         tableau.extensions.settings.set('paramvalue', paramValue);
     } else {
-        let selectedWorksheet = $('selectedWorksheet').val();
+        let selectedWorksheet = $('#selectedWorksheet').val();
         tableau.extensions.settings.set('selectedWorksheet', selectedWorksheet);
     }
 
