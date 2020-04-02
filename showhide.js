@@ -30,6 +30,8 @@ function configure() {
 }
 
 async function initExtension() {
+    let allSettings = ableau.extensions.settings.getAll();
+    document.getElementById('zones').innerHTML += allSettings;
     await setZoneVisibilityObject();
     await setListenerType();
     await setVisibility();
@@ -73,7 +75,6 @@ function removeListener(triggerType) {
 
 function addWorksheetListener() {
     let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
-    document.getElementById('zones').innerHTML += selectedWorksheet;
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets.find(ws => ws.name === selectedWorksheet);
     worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, selection);
 }
