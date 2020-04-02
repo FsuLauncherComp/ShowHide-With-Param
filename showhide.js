@@ -46,12 +46,12 @@ function setZoneVisibilityObject() {
 function setListenerType() {
     let triggerType = tableau.extensions.settings.get('triggerType');
     removeListener(triggerType);
-    document.getElementById('zones').innerHTML += selectedWorksheet;
+    let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
+    document.getElementById('zones').innerHTML += selectedWorksheet + ' : ' + triggerType ;
     if (triggerType == 'trigger-parameter') {
         addParameterListener();
     } else {
         addWorksheetListener();
-        let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
     }
 }
 
