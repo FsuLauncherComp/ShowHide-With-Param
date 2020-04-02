@@ -33,9 +33,9 @@ function getWorksheets() {
     let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
     tableau.extensions.dashboardContent.dashboard.worksheets.forEach(function (worksheet) {
         if (worksheet.name == selectedWorksheet) {
-            options += "<option value=${worksheet.name} selected> ${worksheet.name}</option>";
+            options += `<option value=${worksheet.name} selected> ${worksheet.name}</option>`;
         } else {
-            options += "<option value=${worksheet.name}> ${worksheet.name}</option>";
+            options += `<option value=${worksheet.name}> ${worksheet.name}</option>`;
         }
     });
     document.getElementById('selectedWorksheet').innerHTML = options;
@@ -50,9 +50,9 @@ function getParams() {
         for (let p of params) {
             if (p.dataType != 'date') {
                 if (p.name == selectedParameter) {
-                    options += "<option value='${p.name}' selected>${p.name}</option>";
+                    options += `<option value='${p.name}' selected>${p.name}</option>`;
                 } else {
-                    options += "<option value='${p.name}'>${p.name}</option>";
+                    options += `<option value='${p.name}'>${p.name}</option>`;
                 }
                 c++
             }
