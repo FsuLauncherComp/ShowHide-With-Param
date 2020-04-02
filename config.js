@@ -90,16 +90,16 @@ function getDashboardObjects() {
 };
 
 function submit() {
-    let zone = $('#pickzone').val();
+    let zone = $("#pickzone").val();
     tableau.extensions.settings.set('zone', zone);
 
-    let triggerType = $('#trigger-type').val();
+    let triggerType = $("#trigger-type").val();
     tableau.extensions.settings.set('triggerType', triggerType);
 
     if (triggerType == 'trigger-parameter') {
-        let param = $('#pickparam').val();
-        let showhidevalue = $('#showhideoption').val();
-        let paramValue = $('#paramvalue').val();
+        let param = $("#pickparam").val();
+        let showhidevalue = $("#showhideoption").val();
+        let paramValue = $("#paramvalue").val();
         tableau.extensions.settings.set('parameter', param);
         tableau.extensions.settings.set('showhidevalue', showhidevalue);
         tableau.extensions.settings.set('paramvalue', paramValue);
