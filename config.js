@@ -90,10 +90,10 @@ function getDashboardObjects() {
 };
 
 function submit() {
-    let zone = $('#pickzone').val();
+    let zone = document.getElementById('pickzone').value;
     tableau.extensions.settings.set('zone', zone);
 
-    let triggerType = document.getElementById('#trigger-type').value;
+    let triggerType = document.getElementById('trigger-type').value;
     tableau.extensions.settings.set('triggerType', triggerType);
 
     if (triggerType == 'trigger-parameter') {
