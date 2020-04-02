@@ -30,7 +30,7 @@ function configure() {
 }
 
 async function initExtension() {
-    let allSettings = ableau.extensions.settings.getAll();
+    let allSettings = tableau.extensions.settings.getAll();
     document.getElementById('zones').innerHTML += allSettings;
     await setZoneVisibilityObject();
     await setListenerType();
