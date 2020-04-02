@@ -87,6 +87,8 @@ function getDashboardObjects() {
     })
     document.getElementById('pickzone').innerHTML = options;
     document.getElementById('setzone').disabled = false;
+    let selectedWorksheet = $('#selectedWorksheet').val();
+    document.getElementById('trigger-dashboard-action').innerHTML += selectedWorksheet
 };
 
 function submit() {
