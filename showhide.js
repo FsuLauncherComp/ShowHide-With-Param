@@ -73,6 +73,7 @@ function removeListener(triggerType) {
 
 function addWorksheetListener() {
     let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
+    document.getElementById('zones').innerHTML += selectedWorksheet;
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets.find(ws => ws.name === selectedWorksheet);
     worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, selection);
 }
