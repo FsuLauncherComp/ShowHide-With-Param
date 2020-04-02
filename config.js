@@ -33,9 +33,9 @@ function getWorksheets() {
     let selectedWorksheet = tableau.extensions.settings.get('selectedWorksheet');
     tableau.extensions.dashboardContent.dashboard.worksheets.forEach(function (worksheet) {
         if (worksheet.name == selectedWorksheet) {
-            options += `<option value=${worksheet.name} selected> ${worksheet.name}</option>`;
+            options += `<option value='${worksheet.name}' selected> ${worksheet.name}</option>`;
         } else {
-            options += `<option value=${worksheet.name}> ${worksheet.name}</option>`;
+            options += `<option value='${worksheet.name}'> ${worksheet.name}</option>`;
         }
     });
     document.getElementById('selectedWorksheet').innerHTML = options;
