@@ -38,7 +38,7 @@ function getWorksheets() {
             options += `<option value=${worksheet.name}>${worksheet.name}</option>`;
         }
     });
-    document.getElementById('select-worksheet').innerHTML = options;
+    document.getElementById('selectedWorksheet').innerHTML = options;
     document.getElementById('save-settings').disabled = false;
 }
 
@@ -104,7 +104,7 @@ function submit() {
         tableau.extensions.settings.set('showhidevalue', showhidevalue);
         tableau.extensions.settings.set('paramvalue', paramValue);
     } else {
-        let selectedWorksheet = document.getElementById('select-worksheet').value;
+        let selectedWorksheet = $('selectedWorksheet').val();
         tableau.extensions.settings.set('selectedWorksheet', selectedWorksheet);
     }
 
