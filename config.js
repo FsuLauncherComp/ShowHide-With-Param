@@ -90,21 +90,21 @@ function getDashboardObjects() {
 };
 
 function submit() {
-    let zone = document.getElementById('pickzone').value;
+    let zone = $('#pickzone').val();
     tableau.extensions.settings.set('zone', zone);
 
-    let triggerType = document.getElementById('trigger-type').value;
+    let triggerType = $('#trigger-type').val();
     tableau.extensions.settings.set('triggerType', triggerType);
 
     if (triggerType == 'trigger-parameter') {
-        let param = document.getElementById('pickparam').value;
-        let showhidevalue = document.getElementById('showhideoption').value;
-        let paramValue = document.getElementById('paramvalue').value;
+        let param = $('#pickparam').val();
+        let showhidevalue = $('#showhideoption').val();
+        let paramValue = $('#paramvalue').val();
         tableau.extensions.settings.set('parameter', param);
         tableau.extensions.settings.set('showhidevalue', showhidevalue);
         tableau.extensions.settings.set('paramvalue', paramValue);
     } else {
-        let selectedWorksheet = document.getElementById('select-worksheet').value;
+        let selectedWorksheet = $('select-worksheet').val();
         tableau.extensions.settings.set('selectedWorksheet', selectedWorksheet);
     }
 
