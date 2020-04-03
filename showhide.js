@@ -30,9 +30,6 @@ function configure() {
 }
 
 async function initExtension() {
-    let ws = tableau.extensions.settings.get('selectedWorksheet');
-    let z = tableau.extensions.settings.get('zone')
-    document.getElementById('zones').innerHTML += ws + ' : ' + z;
     await setZoneVisibilityObject();
     await setListenerType();
     await setVisibility();
